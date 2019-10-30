@@ -1,0 +1,15 @@
+FROM node:alpine
+
+USER node
+ENV NPM_CONFIG_PREFIX=/app/node/.npm-global
+ENV PATH=$PATH:/app/node/.npm-global/bin
+RUN mkdir /app
+WORKDIR /app
+
+COPY package.json .
+RUN npm install --only=prod 
+
+RUN chown -R node: /app
+
+CMD ["npm", "run", "start"]
+
